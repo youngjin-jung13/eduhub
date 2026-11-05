@@ -1,0 +1,7 @@
+# 자동화 테스트용. 외부 DB 없이 돌 수 있게 H2를 PostgreSQL 호환 모드로 쓴다.
+# 주의: 락·동시성 동작은 PostgreSQL과 다르므로 NFR-01 동시성 테스트는 실제 PostgreSQL에서 다시 검증해야 한다.
+spring:
+  datasource:
+    url: jdbc:h2:mem:eduhub;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
