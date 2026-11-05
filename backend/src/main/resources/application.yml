@@ -1,0 +1,30 @@
+# 모든 프로필에 공통인 설정. 환경마다 다른 값은 application-{profile}.yml에 둔다. (NFR-06)
+spring:
+  application:
+    name: eduhub
+  profiles:
+    # SPRING_PROFILES_ACTIVE가 없으면 dev로 뜬다.
+    default: dev
+  jpa:
+    # NFR-02: 뷰 렌더링 중 지연 로딩을 막아 N+1을 개발 중에 드러낸다.
+    open-in-view: false
+    hibernate:
+      # 스키마는 Flyway가 관리하고, JPA는 엔티티와 스키마가 맞는지만 확인한다.
+      ddl-auto: validate
+    properties:
+      hibernate:
+        # D-01(회차 시작 1일 전) 계산 기준 타임존.
+        jdbc:
+          time_zone: Asia/Seoul
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: ${APP_PORT:8080}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
